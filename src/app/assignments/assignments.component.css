@@ -1,0 +1,65 @@
+.mat-body{
+  max-width: 1200px;
+  margin: auto;
+  padding-top: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.mat-sidenav-container{
+  min-height:calc(100vh - 60px);
+}
+
+.sidenav-right{
+}
+
+.sidenav-left{
+  width: 250px;
+  min-height: 100vh;
+  background-color: #6c80ed;
+}
+
+table{
+  width: 100%;
+  height: 100%;
+}
+
+th.mat-header-cell, td.mat-cell{
+  text-align: center;
+}
+
+.sidenav-left a {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px 0;
+  border-bottom: 1px white solid;
+  width: 100%;
+  color: white;
+}
+
+.sidenav-left a:hover{
+  background: white;
+  color: black;
+  transition: background-color 0.2s ease;
+}
+
+a button{
+  width: 100%;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.container{
+  display: flex;
+  flex-direction: column;
+}
+
+.ajouterBtn{
+  align-self: flex-end;
+}

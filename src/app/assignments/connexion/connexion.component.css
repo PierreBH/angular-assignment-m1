@@ -1,0 +1,29 @@
+.main-connexion{
+  width: 100%;
+  height: calc(100vh - 60px);
+  background-color: #f5f5f5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.form-connexion {
+  width: 400px;
+  min-width: 300px;
+  height: 70%;
+  border: 1px solid black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  border-radius: 20px;
+}
+
+.form-connexion .title {
+  margin-bottom: 5vh;
+}
+
+.form-connexion mat-form-field{
+  width: 100%;
+}

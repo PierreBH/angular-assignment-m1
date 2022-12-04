@@ -1,0 +1,44 @@
+<mat-stepper #stepper>
+  <mat-step [stepControl]="firstFormGroup" errorMessage="Nom du devoir obligatoire, veuillez préciser une date" >
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Donner un nom à votre devoir</ng-template>
+      <mat-form-field class="form-input" appearance="fill">
+        <input matInput name="nom" placeholder="Nom du devoir" required formControlName="firstCtrl" [(ngModel)]="nomDevoir">
+      </mat-form-field>
+      <div>
+        <button mat-stroked-button matStepperNext>Suivant</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="secondFormGroup" errorMessage="Date de rendu obligatoire, veuillez préciser une date">
+    <form [formGroup]="secondFormGroup">
+      <ng-template matStepLabel>Préciser une date de rendu</ng-template>
+      <mat-form-field appearance="fill" class="form-input">
+        <input matInput [matDatepicker]="picker"
+               placeholder="Date de rendu"
+                name="date" required [(ngModel)]="dateDeRendu" formControlName="secondCtrl">
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div>
+        <button mat-stroked-button matStepperPrevious>Retour</button>
+        <button mat-stroked-button matStepperNext>Suivant</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Ajouter le devoir</ng-template>
+    <div class="container-bouton">
+      <a routerLink="/home">
+        <button type="button" mat-flat-button color="accent" class="ajouterBtn"
+                (click)="onSubmit()" style="margin-right: 20px"
+        >   Ajouter Assignment
+        </button>
+      </a>
+    </div>
+    <div>
+      <button mat-button matStepperPrevious>Retour</button>
+      <button mat-button (click)="stepper.reset()">Reset</button>
+    </div>
+  </mat-step>
+</mat-stepper>
