@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {forkJoin, Observable} from "rxjs";
-import {Assignment} from "../assignments/assignment.model";
+import {Assignment} from "../assignments/model/assignment.model";
 import {LoggingService} from "./logging.service";
 import {HttpClient} from "@angular/common/http";
 import {bdInitialAssignments} from "./data";

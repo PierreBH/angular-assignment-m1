@@ -12,6 +12,16 @@ a {
   min-height:calc(100vh - 60px);
 }
 
+.mat-elevation-z8{
+  max-height: 100vh;
+}
+
+.mat-form-field{
+  padding-left: 10px;
+  width: 90%;
+  margin: 10px 0;
+}
+
 .sidenav-right{
 }
 

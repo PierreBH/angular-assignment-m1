@@ -1,5 +1,5 @@
 <mat-stepper #stepper>
-  <mat-step [stepControl]="firstFormGroup" errorMessage="Nom du devoir obligatoire, veuillez préciser une date" >
+  <mat-step [stepControl]="firstFormGroup" errorMessage="Nom du devoir obligatoire, veuillez préciser un nom" >
     <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>Donner un nom à votre devoir</ng-template>
       <mat-form-field class="form-input" appearance="fill">
@@ -7,6 +7,18 @@
       </mat-form-field>
       <div>
         <button mat-stroked-button matStepperNext>Suivant</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="firstFormGroup" errorMessage="Nom de la matière obligatoire, veuillez préciser un nom" >
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Préciser la matière</ng-template>
+      <mat-form-field class="form-input" appearance="fill">
+        <input matInput name="matiere" placeholder="Nom de la matière" required formControlName="firstCtrl" [(ngModel)]="matiere">
+      </mat-form-field>
+      <div class="group-btn">
+        <button mat-stroked-button matStepperPrevious class="btn-retour">Retour</button>
+        <button mat-stroked-button matStepperNext class="btn-suivant">Suivant</button>
       </div>
     </form>
   </mat-step>
@@ -20,9 +32,9 @@
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
-      <div>
-        <button mat-stroked-button matStepperPrevious>Retour</button>
-        <button mat-stroked-button matStepperNext>Suivant</button>
+      <div class="group-btn">
+        <button mat-stroked-button matStepperPrevious class="btn-retour">Retour</button>
+        <button mat-stroked-button matStepperNext class="btn-suivant">Suivant</button>
       </div>
     </form>
   </mat-step>
@@ -36,8 +48,8 @@
         </button>
       </a>
     </div>
-    <div>
-      <button mat-button matStepperPrevious>Retour</button>
+    <div class="group-btn">
+      <button mat-stroked-button matStepperPrevious class="btn-retour">Retour</button>
       <button mat-button (click)="stepper.reset()">Reset</button>
     </div>
   </mat-step>

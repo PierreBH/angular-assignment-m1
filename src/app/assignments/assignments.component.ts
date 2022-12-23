@@ -1,10 +1,12 @@
-import {Component, Injectable, OnInit} from '@angular/core';
-import {Assignment} from "./assignment.model";
+import {AfterViewInit, Component, Injectable, OnInit, ViewChild} from '@angular/core';
+import {Assignment} from "./model/assignment.model";
 import {AssignmentsService} from "../shared/assignments.service";
 import {MatPaginatorIntl, PageEvent} from "@angular/material/paginator";
 import {Subject} from "rxjs";
 import {$localize} from '@angular/localize/init';
-import {Router} from "@angular/router";
+import {Event, Router} from "@angular/router";
+import {MatTableDataSource} from "@angular/material/table";
+import {MatSort} from "@angular/material/sort";
 
 @Injectable()
 export class MyCustomPaginatorIntl implements MatPaginatorIntl {
@@ -37,13 +39,15 @@ export class MyCustomPaginatorIntl implements MatPaginatorIntl {
   styleUrls: ['./assignments.component.css']
 })
 
-export class AssignmentsComponent implements OnInit {
+export class AssignmentsComponent implements OnInit, AfterViewInit {
   titre = "Mon application sur les Assignments !";
   ajoutActive = false;
   formVisible = false;
+  test = "";
   assignementSelectionne!:Assignment;
   assignments: Assignment[] = [];
   displayedColumns: string[] = ['id', 'nom', 'dateRendu', 'rendu', 'modify'];
+  dataSourceAssignment: MatTableDataSource<Assignment>;
 
   page: number=1;
   limit: number=10;
@@ -55,12 +59,23 @@ export class AssignmentsComponent implements OnInit {
   hasNextPage: boolean;
   nextPage: number;
 
+  @ViewChild(MatSort) sort: MatSort;
 
-  constructor(private assignmentsService: AssignmentsService, private router: Router) { }
+  constructor(private assignmentsService: AssignmentsService, private router: Router) {
+    this.dataSourceAssignment = new MatTableDataSource(this.assignments);
+  }
+
+  ngAfterViewInit() {
+    this.dataSourceAssignment.sort = this.sort;
+  }
 
   ngOnInit(): void {
-    //this.getAssignments();
     this.onUpdate();
+  }
+
+  applyFilter(event: KeyboardEvent) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSourceAssignment.filter = filterValue.trim().toLowerCase();
   }
 
   pageSuivante(event: PageEvent) {
@@ -89,11 +104,15 @@ export class AssignmentsComponent implements OnInit {
         this.hasNextPage = data.hasNextPage;
         this.nextPage = data.nextPage;
         console.log("données reçues");
+        this.dataSourceAssignment.data = data.docs;
       });
   }
 
   getAssignments() {
-    this.assignmentsService.getAssignments().subscribe(assignments => this.assignments = assignments);
+    this.assignmentsService.getAssignments().subscribe(assignments => {
+      this.assignments = assignments;
+      this.dataSourceAssignment = new MatTableDataSource(this.assignments);
+    });
   }
 
   onNouvelAssignment(event: Assignment) {
@@ -102,17 +121,18 @@ export class AssignmentsComponent implements OnInit {
     this.formVisible = false;
   }
 
+  onClickEdit(event: Assignment){
+    console.log("test")
+    this.router.navigate(["/assignment", event?.id, 'edit'],
+      {queryParams: {nom: event?.nom}, fragment: 'edition'});
+  }
+
   assignmentClique(assignment:Assignment) {
     this.assignementSelectionne = assignment;
   }
 
   onAddAssignmentBtnClick() {
     this.formVisible = true;
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    //this.assignments.filter = filterValue.trim().toLowerCase();
   }
 
   peuplerBD() {

@@ -1,5 +1,5 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {Assignment} from "../assignment.model";
+import {Assignment} from "../model/assignment.model";
 import {AssignmentsService} from "../../shared/assignments.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {STEPPER_GLOBAL_OPTIONS} from "@angular/cdk/stepper";
@@ -20,12 +20,16 @@ export class AddAssignmentComponent implements OnInit {
 
   nomDevoir = "";
   dateDeRendu:Date;
+  matiere: string = "";
+  auteur: string = "moi"
+
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
   });
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
+
   constructor(private assignmentService: AssignmentsService, private _formBuilder: FormBuilder) { }
 
   ngOnInit(): void {
@@ -36,6 +40,8 @@ export class AddAssignmentComponent implements OnInit {
     const newAssignment = new Assignment();
     newAssignment.id = Math.floor(Math.random()*1000) //this.assignmentService.getIdAvailable();
     newAssignment.nom = this.nomDevoir;
+    //newAssignment.matiere = this.matiere;
+    newAssignment.auteur = this.auteur;
     newAssignment.dateDeRendu = this.dateDeRendu;
     newAssignment.rendu = false;
 

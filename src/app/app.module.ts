@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import {MatIconModule} from "@angular/material/icon";
 import {MatDividerModule} from "@angular/material/divider";
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {AssignmentsComponent, MyCustomPaginatorIntl} from './assignments/assignments.component';
+import {AssignmentsComponent} from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
 import {MatInputModule} from "@angular/material/input";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -45,16 +45,16 @@ const routes : Routes = [
   ];
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AssignmentsComponent,
-    RenduDirective,
-    AssignmentDetailComponent,
-    AddAssignmentComponent,
-    EditAssignmentComponent,
-    ConnexionComponent,
-    RegisterComponent
-  ],
+    declarations: [
+        AppComponent,
+        AssignmentsComponent,
+        RenduDirective,
+        AssignmentDetailComponent,
+        AddAssignmentComponent,
+        EditAssignmentComponent,
+        ConnexionComponent,
+        RegisterComponent
+    ],
   imports: [
     BrowserModule,
     MatButtonModule,
@@ -78,7 +78,7 @@ const routes : Routes = [
     MatToolbarModule,
     MatSidenavModule, MatSnackBarModule, MatTableModule, MatStepperModule, ReactiveFormsModule
   ],
-  providers: [{provide: MatPaginatorIntl, useClass: MyCustomPaginatorIntl}],
+  providers: [{provide: MatPaginatorIntl}],
   bootstrap: [AppComponent]
 })
 
