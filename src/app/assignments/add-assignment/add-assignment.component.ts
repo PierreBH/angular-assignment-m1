@@ -45,13 +45,12 @@ export class AddAssignmentComponent implements OnInit {
   onSubmit() {
     const newAssignment = new Assignment();
     newAssignment.nom = this.nomDevoir;
-    newAssignment.auteur = this.auteur;
+    newAssignment.eleve = this.auteur;
     newAssignment.matiere = this.matiere;
     newAssignment.note = null;
     newAssignment.remarque = null;
     newAssignment.dateDeRendu = this.dateDeRendu;
     newAssignment.rendu = false;
-
     this.assignmentService.addAssignment(newAssignment).subscribe(message => {
       console.log(message);
       this.router.navigate(["/home"]);

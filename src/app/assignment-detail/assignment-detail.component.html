@@ -2,7 +2,7 @@
   <mat-card *ngIf="assignmentTransmis">
     <mat-card-title>Nom devoir : {{assignmentTransmis.nom}}</mat-card-title>
     <mat-card-subtitle class="espacement">date de rendu : {{assignmentTransmis.dateDeRendu | date: 'dd/MM/YYYY'}}</mat-card-subtitle>
-    <p class="class-flex align-items-center espacement"><mat-icon style="margin-right: 20px">person_pin</mat-icon>Nom de l'auteur : {{assignmentTransmis.auteur.nom}}</p>
+    <p class="class-flex align-items-center espacement"><mat-icon style="margin-right: 20px">person_pin</mat-icon>Nom de l'auteur : {{assignmentTransmis.eleve.nom}}</p>
     <mat-accordion class="espacement">
       <mat-expansion-panel>
         <mat-expansion-panel-header>
@@ -19,7 +19,7 @@
       </mat-expansion-panel>
     </mat-accordion>
 
-    <p class="espacement" *ngIf="assignmentTransmis.rendu">Note : {{assignmentTransmis.note === null ? 'Le prof n\'a pas encore noté' : assignmentTransmis.note}}</p>
+    <p class="espacement" *ngIf="assignmentTransmis.rendu">Note : {{assignmentTransmis.note === null ? 'Le prof n\'a pas encore noté' : assignmentTransmis.note+'/20'}}</p>
     <p class="espacement" *ngIf="assignmentTransmis.rendu">Remarque du prof : {{assignmentTransmis.remarque === null ? 'Le prof n\'a pas encore ou mis de remarque' : assignmentTransmis.remarque}}</p>
     <div class="container-bouton">
       <div>

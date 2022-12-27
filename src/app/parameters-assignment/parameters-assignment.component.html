@@ -1,0 +1,73 @@
+<div class="page-parameters">
+  <h2 style="text-align: center">Paramètres d'applications</h2>
+  <mat-tab-group mat-stretch-tabs class="example-stretched-tabs mat-elevation-z4" style="border-radius: 5px">
+    <mat-tab label="Matière">
+      <form class="form" ngForm #formupdate (submit)="onSaveAssignment(); formupdate.reset();" style="margin-top: 20px">
+        <div class="category">
+          <h3>Ajouter une nouvelle matière</h3>
+          <div class="form-add-3">
+            <mat-form-field class="field" style="width: 100%">
+              <input class="input-field" matInput placeholder="Nom de la matière" [(ngModel)]="nomMatiere" name="assignment-matiere">
+            </mat-form-field>
+            <mat-form-field class="field" style="width: 100%">
+              <input class="input-field" type="url" matInput placeholder="Image/icon de la matière" [(ngModel)]="urlImageMatiere" name="assignment-image-matiere">
+            </mat-form-field>
+            <mat-form-field class="field" style="width: 100%">
+              <input class="input-field" matInput placeholder="Nom de l'enseignant" [(ngModel)]="nomEnseignant" name="assignment-nom-enseignant">
+            </mat-form-field>
+            <mat-form-field class="field" style="width: 100%">
+              <input class="input-field" type="url" matInput placeholder="Image de l'enseignant" [(ngModel)]="urlImageEnseignant" name="assignment-image-enseignant">
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="addMatiere()" [disabled]="((!nomMatiere)||(!urlImageMatiere)||(!urlImageEnseignant)||(!urlImageMatiere))">Ajouter</button>
+          </div>
+        </div>
+        <div class="category">
+          <h3>Liste des Matières</h3>
+          <mat-form-field class="field" style="width: 100%">
+            <input matInput #filterInputMatiere placeholder="Rechercher par prof, matière">
+          </mat-form-field>
+          <div style="max-height: 440px; overflow-y: scroll;">
+            <mat-list style="padding: 0 10px">
+              <mat-list-item *ngFor="let matiere of listMatiere | matiereFilter: filterInputMatiere.value" style="margin-bottom: 5px;">
+                <div class="form-add-2"><div class="container-img"><img [src]="matiere.imgMatiere" class="img" /></div><h4 mat-line style="margin: 0">{{matiere.nom}}</h4></div><span class="spacer"></span>
+                <div class="form-add-2"><div class="container-img"><img [src]="matiere.imgProf" class="img" /></div><h4 mat-line style="margin: 0">{{matiere.nomEnseignant}}</h4></div>
+                <button mat-icon-button (click)="deleteMatiere(matiere)"><mat-icon style="color:red">delete</mat-icon>
+                </button>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="Élève">
+      <form class="form" ngForm #formupdate (submit)="onSaveAssignment(); formupdate.reset();" style="margin-top: 20px">
+        <div class="category">
+          <h3>Ajouter un nouvel élève</h3>
+          <div class="form-add">
+            <mat-form-field class="field">
+              <input class="input-field" matInput placeholder="Nom de l'élève" [(ngModel)]="nomEleve" name="assignment-eleve">
+            </mat-form-field>
+            <button mat-raised-button color="primary" (click)="addEleve()" [disabled]="(!nomEleve)">Ajouter</button>
+          </div>
+        </div>
+        <div class="category">
+          <h3>Liste des élèves</h3>
+          <mat-form-field class="field" style="width: 100%">
+            <input matInput #filterInput placeholder="Ex. Kevin">
+          </mat-form-field>
+          <div style="max-height: 440px; overflow-y: scroll;">
+            <mat-list style="padding: 0 10px">
+              <mat-list-item *ngFor="let eleve of listEleve | nameFilter: filterInput.value" style="margin-bottom: 5px">
+                <h4 mat-line>{{eleve.nom}}</h4>
+                <button mat-icon-button (click)="deleteEleve(eleve)">
+                  <mat-icon style="color:red">delete</mat-icon>
+                </button>
+              </mat-list-item>
+            </mat-list>
+          </div>
+        </div>
+      </form>
+    </mat-tab>
+    <mat-tab label="Comptes Utilisateurs">  3 </mat-tab>
+  </mat-tab-group>
+</div>

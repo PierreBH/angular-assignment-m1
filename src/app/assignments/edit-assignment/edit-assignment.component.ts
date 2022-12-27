@@ -6,7 +6,7 @@ import {Matiere} from "../model/matiere.model";
 import {Eleve} from "../model/eleve.model";
 import {MatiereService} from "../../shared/matiere.service";
 import {EleveService} from "../../shared/eleve.service";
-import {FormBuilder, Validators} from "@angular/forms";
+import {FormBuilder, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-edit-assignment',
@@ -17,19 +17,16 @@ export class EditAssignmentComponent implements OnInit {
   assignment!: Assignment | undefined;
   nomDevoir:string;
   dateDeRendu:Date;
-  matiere: Matiere;
+  matiereForm: Matiere;
   auteur: Eleve;
   listMatiere: Matiere[] = [];
   listEleve: Eleve[] = [];
   note: number | null;
   remarque: string | null;
 
-  firstFormGroup = this._formBuilder.group({
-    firstCtrl: ['', Validators.required],
-  });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['', Validators.required],
-  });
+  formControlNote = this._formBuilder.control('', [Validators.required, Validators.min(0), Validators.max(20)]);
+  formGroup:FormGroup;
+
 
   constructor(
     private assignmentsService: AssignmentsService,
@@ -37,7 +34,7 @@ export class EditAssignmentComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private matiereService: MatiereService,
-    private eleveService: EleveService
+    private eleveService: EleveService,
   ) {}
 
   ngOnInit(): void {
@@ -58,8 +55,8 @@ export class EditAssignmentComponent implements OnInit {
       // Pour pré-remplir le formulaire
       this.nomDevoir = assignment.nom;
       this.dateDeRendu = assignment.dateDeRendu;
-      this.auteur = assignment.auteur;
-      this.matiere = assignment.matiere;
+      this.auteur = this.listEleve.find(eleve => eleve._id === assignment.eleve._id) ?? assignment.eleve;
+      this.matiereForm = this.listMatiere.find(matiere => matiere._id === assignment.matiere._id) ?? assignment.matiere;
       this.note = assignment.note;
       this.remarque = assignment.remarque;
     });
@@ -71,6 +68,10 @@ export class EditAssignmentComponent implements OnInit {
     // on récupère les valeurs dans le formulaire
     this.assignment.nom = this.nomDevoir;
     this.assignment.dateDeRendu = this.dateDeRendu;
+    this.assignment.eleve = this.auteur;
+    this.assignment.matiere = this.matiereForm;
+    this.assignment.note = this.note;
+    this.assignment.remarque = this.remarque;
     this.assignmentsService
       .updateAssignment(this.assignment)
       .subscribe((message) => {
@@ -82,7 +83,11 @@ export class EditAssignmentComponent implements OnInit {
   }
 
   initListMatiere() {
-    this.matiereService.getAllMatiere().subscribe(data => this.listMatiere = data);
+    this.matiereService.getAllMatiere().subscribe(data => {
+      this.listMatiere = data
+      console.log(data);
+    });
+
   }
 
   initListEleve(){

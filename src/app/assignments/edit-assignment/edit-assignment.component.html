@@ -1,6 +1,6 @@
 <div class="container" *ngIf="assignment">
   <h1>Edition de l'assignment {{assignment.nom}}</h1>
-  <form ngForm class="form" #formupdate (submit)="onSaveAssignment(); formupdate.reset(); ">
+  <form ngForm class="form" #formupdate (submit)="onSaveAssignment(); formupdate.reset();">
     <mat-form-field>
       <input matInput placeholder="Edition du nom" [(ngModel)]="nomDevoir" name="assignment-name">
     </mat-form-field>
@@ -10,7 +10,7 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field class="form-input" appearance="fill">
-      <mat-select name="matiere" placeholder="Choisir une matière" [(value)]="matiere" [(ngModel)]="matiere" required>
+      <mat-select name="matiere" placeholder="Choisir une matière" [value]="matiereForm" [(ngModel)]="matiereForm" required>
         <mat-option *ngFor="let matiere of listMatiere" [value]="matiere">
           {{matiere.nom}}
         </mat-option>
@@ -23,10 +23,17 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field>
-      <input matInput placeholder="Note" [(ngModel)]="note" name="assignment-note">
+    <mat-chip-list style="margin-bottom: 20px" *ngIf="!assignment.rendu">
+      <mat-chip class="chip">
+        <mat-icon>warning</mat-icon>
+        L'élève {{auteur.nom}} n'a pas encore rendu le devoir, il a jusqu'au {{dateDeRendu | date:'dd/MM/yyyy'}}.
+      </mat-chip>
+    </mat-chip-list>
+    <mat-form-field *ngIf="assignment.rendu">
+      <input matInput placeholder="Note" maxlength="2" [(ngModel)]="note" name="assignment-note" [formControl]="formControlNote">
+      <mat-error *ngIf="formControlNote.invalid">La note saisie doit être comprise entre 0 et 20</mat-error>
     </mat-form-field>
-    <mat-form-field>
+    <mat-form-field *ngIf="assignment.rendu">
       <input matInput placeholder="Remarque" [(ngModel)]="remarque" name="assignment-remarque">
     </mat-form-field>
     <div style="display: flex; justify-content: space-between">
@@ -34,7 +41,7 @@
         Annuler
       </button>
       <button mat-raised-button color="primary" [disabled]="((!nomDevoir)||(!dateDeRendu))">
-        Sauver
+        Enregistrer
       </button>
     </div>
 

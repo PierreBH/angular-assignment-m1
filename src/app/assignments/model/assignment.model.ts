@@ -3,7 +3,7 @@ import {Eleve} from "./eleve.model";
 
 export class Assignment {
   _id: string;
-  auteur!:Eleve;
+  eleve!:Eleve;
   nom!: string;
   matiere!: Matiere;
   note!:number | null;

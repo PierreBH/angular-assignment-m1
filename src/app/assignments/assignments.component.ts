@@ -138,6 +138,10 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
     this.formVisible = true;
   }
 
+  onClickParams(){
+    this.router.navigate(["/params"]);
+  }
+
   peuplerBD() {
     // version naive et simple
     //this.assignmentsService.peuplerBD();

@@ -20,21 +20,19 @@ export class EleveService {
     return this.http.get<Assignment[]>(this.uri);
   }
 
-  getAssignment(id: number): Observable<Assignment | undefined> {
-    return this.http.get<Assignment>(`${this.uri}/${id}`);
-  }
-
-  addAssignment(assignment: Assignment) : Observable<any> {
-    let message = this.http.post<Assignment>(this.uri, assignment);
-    return message;
+  addEleve(nom: String) : Observable<any> {
+    const eleve = {
+      nom: nom
+    }
+    return this.http.post<Eleve>(this.uri, eleve);
   }
 
   updateAssignment(assignment: Assignment) : Observable<any> {
     return this.http.put<Assignment>(this.uri, assignment);
   }
 
-  deleteAssignment(assignment: Assignment) : Observable<any> {
-    return this.http.delete<Assignment>(`${this.uri}/${assignment._id}`);
+  deleteEleve(eleve: Eleve) : Observable<any> {
+    return this.http.delete<Eleve>(`${this.uri}/${eleve._id}`);
   }
 
   openSnackBar(message: string) {

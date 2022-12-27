@@ -8,7 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {AssignmentsComponent} from './assignments/assignments.component';
 import { RenduDirective } from './shared/rendu.directive';
 import {MatInputModule} from "@angular/material/input";
-import {MatFormFieldModule} from "@angular/material/form-field";
+import { MatFormFieldModule} from "@angular/material/form-field";
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatDatepickerModule} from "@angular/material/datepicker";
 import {MatNativeDateModule} from "@angular/material/core";
@@ -32,6 +32,14 @@ import {MatTableModule} from "@angular/material/table";
 import { RegisterComponent } from './assignments/register/register.component';
 import {MatStepperModule} from "@angular/material/stepper";
 import {MatExpansionModule} from "@angular/material/expansion";
+import {DragDropModule} from "@angular/cdk/drag-drop";
+import { MatChipsModule} from "@angular/material/chips";
+import {
+  FilterPipe,
+  MatiereFilterPipe,
+  ParametersAssignmentComponent
+} from './parameters-assignment/parameters-assignment.component';
+import {MatTabsModule} from "@angular/material/tabs";
 
 const routes : Routes = [
   {path: '', component: AssignmentsComponent},
@@ -39,6 +47,7 @@ const routes : Routes = [
   {path: 'add', component: AddAssignmentComponent},
   {path: 'assignment/:id', component: AssignmentDetailComponent},
   {path: 'assignment/:id/edit', component: EditAssignmentComponent},
+  {path: 'params', component: ParametersAssignmentComponent},
   {path: 'connexion', component: ConnexionComponent},
   {path: 'register', component: RegisterComponent},
   {path: '**', redirectTo: '/home'}
@@ -53,7 +62,10 @@ const routes : Routes = [
         AddAssignmentComponent,
         EditAssignmentComponent,
         ConnexionComponent,
-        RegisterComponent
+        RegisterComponent,
+        ParametersAssignmentComponent,
+        FilterPipe,
+        MatiereFilterPipe
     ],
   imports: [
     BrowserModule,
@@ -76,7 +88,7 @@ const routes : Routes = [
     HttpClientModule,
     MatPaginatorModule,
     MatToolbarModule,
-    MatSidenavModule, MatSnackBarModule, MatTableModule, MatStepperModule, ReactiveFormsModule, MatExpansionModule
+    MatSidenavModule, MatSnackBarModule, MatTableModule, MatStepperModule, ReactiveFormsModule, MatExpansionModule, DragDropModule, MatChipsModule, MatTabsModule
   ],
   providers: [{provide: MatPaginatorIntl}],
   bootstrap: [AppComponent]
