@@ -1,13 +1,13 @@
 import {Matiere} from "./matiere.model";
+import {Eleve} from "./eleve.model";
 
 export class Assignment {
   _id: string;
-  id!: number;
-  auteur!:string;
+  auteur!:Eleve;
   nom!: string;
   matiere!: Matiere;
-  note!:number;
-  remarque!:string;
+  note!:number | null;
+  remarque!:string | null;
   dateDeRendu!: Date;
   rendu !: boolean;
 }

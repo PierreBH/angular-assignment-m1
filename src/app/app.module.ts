@@ -19,7 +19,6 @@ import { AddAssignmentComponent } from './assignments/add-assignment/add-assignm
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {RouterModule, Routes} from "@angular/router";
 import { EditAssignmentComponent } from './assignments/edit-assignment/edit-assignment.component';
-import {AuthGuard} from "./shared/auth.guard";
 import {MatSlideToggleModule} from "@angular/material/slide-toggle";
 import {MatButtonToggleModule} from "@angular/material/button-toggle";
 import { ConnexionComponent } from './assignments/connexion/connexion.component';
@@ -32,13 +31,14 @@ import {MatSnackBarModule} from "@angular/material/snack-bar";
 import {MatTableModule} from "@angular/material/table";
 import { RegisterComponent } from './assignments/register/register.component';
 import {MatStepperModule} from "@angular/material/stepper";
+import {MatExpansionModule} from "@angular/material/expansion";
 
 const routes : Routes = [
   {path: '', component: AssignmentsComponent},
   {path: 'home', component: AssignmentsComponent},
   {path: 'add', component: AddAssignmentComponent},
   {path: 'assignment/:id', component: AssignmentDetailComponent},
-  {path: 'assignment/:id/edit', component: EditAssignmentComponent, canActivate: [AuthGuard]},
+  {path: 'assignment/:id/edit', component: EditAssignmentComponent},
   {path: 'connexion', component: ConnexionComponent},
   {path: 'register', component: RegisterComponent},
   {path: '**', redirectTo: '/home'}
@@ -76,7 +76,7 @@ const routes : Routes = [
     HttpClientModule,
     MatPaginatorModule,
     MatToolbarModule,
-    MatSidenavModule, MatSnackBarModule, MatTableModule, MatStepperModule, ReactiveFormsModule
+    MatSidenavModule, MatSnackBarModule, MatTableModule, MatStepperModule, ReactiveFormsModule, MatExpansionModule
   ],
   providers: [{provide: MatPaginatorIntl}],
   bootstrap: [AppComponent]

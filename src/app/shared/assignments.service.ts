@@ -10,26 +10,6 @@ import {MatSnackBar } from "@angular/material/snack-bar";
   providedIn: 'root'
 })
 export class AssignmentsService {
-  assignments = [
-    {
-      id: 1,
-      nom: "TP1",
-      dateDeRendu: new Date("2020-11-17"),
-      rendu: true,
-    },
-    {
-      id: 2,
-      nom: "TP2",
-      dateDeRendu: new Date("2020-11-17"),
-      rendu: false,
-    },
-    {
-      id: 3,
-      nom: "TP3",
-      dateDeRendu: new Date("2021-01-04"),
-      rendu: false,
-    },
-  ]
 
   uri = 'http://localhost:8010/api/assignments';
 
@@ -44,11 +24,7 @@ export class AssignmentsService {
     return this.http.get<Assignment[]>(this.uri + `?page=${page}&limit=${limit}`);
   }
 
-  getIdAvailable(){
-    return this.assignments.length + 1;
-  }
-
-  getAssignment(id: number): Observable<Assignment | undefined> {
+  getAssignment(id: string): Observable<Assignment | undefined> {
     //return of(this.assignments.find(assignment => assignment.id === id));
     return this.http.get<Assignment>(`${this.uri}/${id}`);
   }
@@ -65,6 +41,7 @@ export class AssignmentsService {
     //const index = this.assignments.findIndex(a => a.nom === assignment.nom);
     //this.assignments[index] = assignment;
     //return of('Assignment Service : Assignment modifié !');
+    this.openSnackBar("Assignment modifié !");
     return this.http.put<Assignment>(this.uri, assignment);
   }
 
@@ -93,7 +70,7 @@ export class AssignmentsService {
   }
 
   openSnackBar(message: string) {
-    this._snackBar.open(message, 'close', {
+    this._snackBar.open(message, 'Terminé', {
       horizontalPosition: "right",
       verticalPosition: "top",
     });

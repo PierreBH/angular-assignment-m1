@@ -10,11 +10,31 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="firstFormGroup" errorMessage="Nom de la matière obligatoire, veuillez préciser un nom" >
+  <mat-step [stepControl]="firstFormGroup" errorMessage="Matière obligatoire, veuillez préciser une matière" >
     <form [formGroup]="firstFormGroup">
       <ng-template matStepLabel>Préciser la matière</ng-template>
       <mat-form-field class="form-input" appearance="fill">
-        <input matInput name="matiere" placeholder="Nom de la matière" required formControlName="firstCtrl" [(ngModel)]="matiere">
+        <mat-select name="matiere" placeholder="Choisir une matière" [(ngModel)]="matiere" required formControlName="firstCtrl">
+          <mat-option *ngFor="let matiere of listMatiere" [value]="matiere">
+            {{matiere.nom}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="group-btn">
+        <button mat-stroked-button matStepperPrevious class="btn-retour">Retour</button>
+        <button mat-stroked-button matStepperNext class="btn-suivant">Suivant</button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="firstFormGroup" errorMessage="Élève obligatoire, veuillez préciser un élève" >
+    <form [formGroup]="firstFormGroup">
+      <ng-template matStepLabel>Préciser l'élève</ng-template>
+      <mat-form-field class="form-input" appearance="fill">
+        <mat-select name="eleve" placeholder="Choisir un élève" [(value)]="auteur" [(ngModel)]="auteur" required formControlName="firstCtrl">
+          <mat-option *ngFor="let eleve of listEleve" [value]="eleve">
+            {{eleve.nom}}
+          </mat-option>
+        </mat-select>
       </mat-form-field>
       <div class="group-btn">
         <button mat-stroked-button matStepperPrevious class="btn-retour">Retour</button>
@@ -41,12 +61,10 @@
   <mat-step>
     <ng-template matStepLabel>Ajouter le devoir</ng-template>
     <div class="container-bouton">
-      <a routerLink="/home">
         <button type="button" mat-flat-button color="accent" class="ajouterBtn"
                 (click)="onSubmit()" style="margin-right: 20px"
         >   Ajouter Assignment
         </button>
-      </a>
     </div>
     <div class="group-btn">
       <button mat-stroked-button matStepperPrevious class="btn-retour">Retour</button>

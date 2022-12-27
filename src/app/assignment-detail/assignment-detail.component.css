@@ -5,6 +5,43 @@ mat-card{
   margin: 20px auto 0 auto;
 }
 
+.class-flex {
+  display: flex;
+}
+
+.img-matiere{
+  width: 30px;
+  padding-right: 15px;
+}
+
+.espacement{
+  margin-bottom: 20px;
+}
+
+.class-flex .cadre-img{
+  display: flex;
+  flex-direction: row;
+  border-radius: 50px;
+  padding: 15px 20px;
+  width: 100%;
+  justify-content: space-around;
+  -webkit-box-shadow: 3px 3px 7px 0px rgb(0,0,0,0.4);
+  box-shadow: 3px 3px 7px 0px rgb(0,0,0,0.4);
+}
+
+.title{
+  margin: 0;
+  padding: 0;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.container-matiere .subtitle{
+  margin: 0;
+  padding: 0;
+  color: rgba(0, 0, 0, 0.54);
+  font-size: 14px;
+}
 
 .container-bouton{
   margin: 20px 0;

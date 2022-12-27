@@ -3,4 +3,5 @@ export class Matiere {
   nom!: string;
   imgMatiere!:string;
   imgProf!: string;
+  nomEnseignant!: string;
 }

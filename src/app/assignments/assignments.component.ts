@@ -122,9 +122,12 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   }
 
   onClickEdit(event: Assignment){
-    console.log("test")
-    this.router.navigate(["/assignment", event?.id, 'edit'],
-      {queryParams: {nom: event?.nom}, fragment: 'edition'});
+    console.log(event)
+    this.router.navigate(["/assignment", event?._id, 'edit']);
+  }
+
+  onClickView(event: Assignment){
+    this.router.navigate(["/assignment", event?._id]);
   }
 
   assignmentClique(assignment:Assignment) {

@@ -1,8 +1,13 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Assignment} from "../model/assignment.model";
 import {AssignmentsService} from "../../shared/assignments.service";
 import {FormBuilder, Validators} from "@angular/forms";
 import {STEPPER_GLOBAL_OPTIONS} from "@angular/cdk/stepper";
+import {MatiereService} from "../../shared/matiere.service";
+import {Matiere} from "../model/matiere.model";
+import {Eleve} from "../model/eleve.model";
+import {EleveService} from "../../shared/eleve.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-add-assignment',
@@ -16,12 +21,12 @@ import {STEPPER_GLOBAL_OPTIONS} from "@angular/cdk/stepper";
   ],
 })
 export class AddAssignmentComponent implements OnInit {
-  //@Output() nouvelAssignment = new EventEmitter<Assignment>();
-
   nomDevoir = "";
   dateDeRendu:Date;
-  matiere: string = "";
-  auteur: string = "moi"
+  matiere: Matiere;
+  auteur: Eleve;
+  listMatiere: Matiere[] = [];
+  listEleve: Eleve[] = [];
 
   firstFormGroup = this._formBuilder.group({
     firstCtrl: ['', Validators.required],
@@ -30,22 +35,40 @@ export class AddAssignmentComponent implements OnInit {
     secondCtrl: ['', Validators.required],
   });
 
-  constructor(private assignmentService: AssignmentsService, private _formBuilder: FormBuilder) { }
+  constructor(private assignmentService: AssignmentsService, private router: Router, private _formBuilder: FormBuilder, private matiereService: MatiereService,private eleveService: EleveService) { }
 
   ngOnInit(): void {
-
+    this.initListMatiere();
+    this.initListEleve();
   }
 
   onSubmit() {
     const newAssignment = new Assignment();
-    newAssignment.id = Math.floor(Math.random()*1000) //this.assignmentService.getIdAvailable();
     newAssignment.nom = this.nomDevoir;
-    //newAssignment.matiere = this.matiere;
     newAssignment.auteur = this.auteur;
+    newAssignment.matiere = this.matiere;
+    newAssignment.note = null;
+    newAssignment.remarque = null;
     newAssignment.dateDeRendu = this.dateDeRendu;
     newAssignment.rendu = false;
 
-    this.assignmentService.addAssignment(newAssignment).subscribe(message => console.log(message));
+    this.assignmentService.addAssignment(newAssignment).subscribe(message => {
+      console.log(message);
+      this.router.navigate(["/home"]);
+    });
+  }
+
+  initListMatiere() {
+    this.matiereService.getAllMatiere().subscribe(data => this.listMatiere = data);
+  }
+
+  initListEleve(){
+    this.eleveService.getAllEleve().subscribe(data => {
+      this.listEleve = data
+      if(data.length > 0){
+        this.auteur = data[0];
+      }
+    });
   }
 
 }

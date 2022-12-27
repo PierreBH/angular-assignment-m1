@@ -11,6 +11,8 @@ import {AuthService} from "../shared/auth.service";
 })
 export class AssignmentDetailComponent implements OnInit {
   @Input() assignmentTransmis: Assignment | null | undefined;
+  panelOpenState: boolean = false;
+  isChecked: boolean = false;
 
   constructor(private assignmentsService: AssignmentsService,
               private route: ActivatedRoute,
@@ -28,8 +30,12 @@ export class AssignmentDetailComponent implements OnInit {
   getAssignment() {
     const id = this.route.snapshot.paramMap.get('id');
     if(id)
-      this.assignmentsService.getAssignment(Number(id ?? 0))
-        .subscribe(assignment => this.assignmentTransmis = assignment);
+      this.assignmentsService.getAssignment(id)
+        .subscribe(assignment => {
+          this.assignmentTransmis = assignment;
+          this.isChecked = assignment?.rendu ?? false;
+          console.log(assignment)
+        });
   }
 
   handleUpdateAssignment() {
@@ -47,7 +53,7 @@ export class AssignmentDetailComponent implements OnInit {
   }
 
   onClickEdit(){
-    this.router.navigate(["/assignment", this.assignmentTransmis?.id, 'edit'],
+    this.router.navigate(["/assignment", this.assignmentTransmis?._id, 'edit'],
       {queryParams: {nom: this.assignmentTransmis?.nom}, fragment: 'edition'});
   }
 
