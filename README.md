@@ -1,27 +1,31 @@
-# AssignmentApp
+# A propos du projet
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.2.
+Cette application est generée avec  le framework front-end Angular, un back-end basé sur Node.JS et une base de donnée NoSQL MongoDB.
 
-## Development server
+# Prerequis
+* Installer Angular
+* Installer [NodeJS](https://nodejs.org/en/download/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+# Environment de développement
+## Visual Code
 
-## Code scaffolding
+# Installation du projet sur *Visual Code*
+ 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+# Installation du projet sur *Webstorm*
+## Serveur de développement
 
-## Build
+Pour lancer le serveur il faut utiliser la commande `ng serve`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Running unit tests
+Un professeur souhaite ajouter dans l'application des boites de depots des devoirs pour pouvoir noter ses étudiants. Nous allons presenter les fonctionnalités de cette application.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Le professeur se connecte tout d'abord afin d'avoir le droit de noter et ajouter un assignement et les étudiants
 
-## Running end-to-end tests
+![image](https://user-images.githubusercontent.com/90200870/209881197-69487b4e-ccc4-4ede-a359-45f160318b23.png)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Il clique sur ![image](https://user-images.githubusercontent.com/90200870/209881266-b970957d-447c-4c10-9a82-930694518cc5.png)
+ et rentre les informations necessaires, la date de rendu est obligatoire
+ ![image](https://user-images.githubusercontent.com/90200870/209881531-b8e6c321-4dd7-4ff5-a7e5-ecfca6a08ed8.png)
 
-## Further help
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
