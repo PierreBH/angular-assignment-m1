@@ -6,7 +6,7 @@ Cette application est generée avec  le framework front-end Angular, un back-end
 
 ## Prerequis
 
-* Installer [Visual Code](https://code.visualstudio.com/download), un editeur de code
+* Il est conseillé d'installer un éditeur de code comme [Visual Code](https://code.visualstudio.com/download) ou bien [WebStorm](https://www.jetbrains.com/fr-fr/webstorm/)
 * Installer Angular CLI avec la commande `npm install -g @angular/cli`
 * Installer [NodeJS](https://nodejs.org/en/download/)
 
