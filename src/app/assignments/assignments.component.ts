@@ -43,7 +43,6 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   titre = "Mon application sur les Assignments !";
   ajoutActive = false;
   formVisible = false;
-  test = "";
   assignementSelectionne!:Assignment;
   assignments: Assignment[] = [];
   displayedColumns: string[] = ['id', 'nom', 'dateRendu', 'rendu', 'modify'];
@@ -60,6 +59,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   nextPage: number;
 
   @ViewChild(MatSort) sort: MatSort;
+  checked: string;
 
   constructor(private assignmentsService: AssignmentsService, private router: Router) {
     this.dataSourceAssignment = new MatTableDataSource(this.assignments);
@@ -70,6 +70,16 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.dataSourceAssignment.filterPredicate =  ((record,filter) => {
+      console.log(filter);
+      if(filter != null && (filter == "true" || filter == "false")){
+        return record.rendu.toString() == filter;
+      } else if(filter != null && filter != "") {
+        return record.nom.toLocaleLowerCase() == filter.toLocaleLowerCase();
+      } else {
+        return true;
+      }
+    });
     this.onUpdate();
   }
 
@@ -78,17 +88,35 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
     this.dataSourceAssignment.filter = filterValue.trim().toLowerCase();
   }
 
+  applyFilterCheckBox(event: string) {
+    this.dataSourceAssignment.filter = event.toString();
+  }
+
+  isNull(elem?: any): boolean{
+    return undefined === elem || null === elem;
+  }
+
+  isNotNull(elem?: any): boolean{
+    return !this.isNull(elem);
+  }
+
+  checkStateActive(event: any, el: any) {
+    event.preventDefault();
+    if (this.isNotNull(this.checked) && this.checked === el.value) {
+      el.checked = false;
+      this.checked = "";
+    } else {
+      el.checked = true;
+      this.checked = el.value;
+    }
+    this.applyFilterCheckBox(this.checked);
+  }
+
   pageSuivante(event: PageEvent) {
     this.page = event.pageIndex;
     this.limit = event.pageSize;
 
     this.onUpdate();
-  }
-
-  setPageSizeOptions(setPageSizeOptionsInput: string) {
-    if (setPageSizeOptionsInput) {
-      this.pageSizeOptions = setPageSizeOptionsInput.split(',').map(str => +str);
-    }
   }
 
   onUpdate(){
@@ -108,19 +136,6 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
       });
   }
 
-  getAssignments() {
-    this.assignmentsService.getAssignments().subscribe(assignments => {
-      this.assignments = assignments;
-      this.dataSourceAssignment = new MatTableDataSource(this.assignments);
-    });
-  }
-
-  onNouvelAssignment(event: Assignment) {
-    //this.assignments.push(event);w
-    this.assignmentsService.addAssignment(event).subscribe(message => console.log(message));
-    this.formVisible = false;
-  }
-
   onClickEdit(event: Assignment){
     console.log(event)
     this.router.navigate(["/assignment", event?._id, 'edit']);
@@ -128,14 +143,6 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
 
   onClickView(event: Assignment){
     this.router.navigate(["/assignment", event?._id]);
-  }
-
-  assignmentClique(assignment:Assignment) {
-    this.assignementSelectionne = assignment;
-  }
-
-  onAddAssignmentBtnClick() {
-    this.formVisible = true;
   }
 
   onClickParams(){

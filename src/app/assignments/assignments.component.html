@@ -15,8 +15,21 @@
       <h2 style="padding-top: 10px; padding-left: 10px">Liste des devoirs : </h2>
       <mat-form-field>
         <mat-label>Filter</mat-label>
-        <input matInput (keyup)="applyFilter($event)" [(ngModel)]="test" placeholder="Ex. Test">
+        <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Test">
       </mat-form-field>
+      <mat-label style="margin: 0 10px;">Filtrer par rendu : </mat-label>
+      <mat-radio-group [(ngModel)]="checked">
+        <mat-radio-button #activeTrue
+                          [value]="true"
+                          (click)="checkStateActive($event, activeTrue)" >
+          oui
+        </mat-radio-button>
+        <mat-radio-button #activeFalse
+                          [value]="false"
+                          (click)="checkStateActive($event, activeFalse)" style="margin-left: 10px">
+          non
+        </mat-radio-button>
+      </mat-radio-group>
       <mat-paginator [length]="totalDocs"
                      showFirstLastButtons="true"
                      [pageSize]="limit"

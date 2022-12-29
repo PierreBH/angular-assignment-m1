@@ -40,6 +40,7 @@ import {
   ParametersAssignmentComponent
 } from './parameters-assignment/parameters-assignment.component';
 import {MatTabsModule} from "@angular/material/tabs";
+import {MatRadioModule} from "@angular/material/radio";
 
 const routes : Routes = [
   {path: '', component: AssignmentsComponent},
@@ -67,29 +68,29 @@ const routes : Routes = [
         FilterPipe,
         MatiereFilterPipe
     ],
-  imports: [
-    BrowserModule,
-    MatButtonModule,
-    MatDividerModule,
-    MatIconModule,
-    MatInputModule,
-    MatFormFieldModule,
-    BrowserAnimationsModule,
-    FormsModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatListModule,
-    MatCardModule,
-    MatCheckboxModule,
-    RouterModule.forRoot(routes),
-    MatSlideToggleModule,
-    MatButtonToggleModule,
-    MatSelectModule,
-    HttpClientModule,
-    MatPaginatorModule,
-    MatToolbarModule,
-    MatSidenavModule, MatSnackBarModule, MatTableModule, MatStepperModule, ReactiveFormsModule, MatExpansionModule, DragDropModule, MatChipsModule, MatTabsModule
-  ],
+    imports: [
+        BrowserModule,
+        MatButtonModule,
+        MatDividerModule,
+        MatIconModule,
+        MatInputModule,
+        MatFormFieldModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        MatDatepickerModule,
+        MatNativeDateModule,
+        MatListModule,
+        MatCardModule,
+        MatCheckboxModule,
+        RouterModule.forRoot(routes),
+        MatSlideToggleModule,
+        MatButtonToggleModule,
+        MatSelectModule,
+        HttpClientModule,
+        MatPaginatorModule,
+        MatToolbarModule,
+        MatSidenavModule, MatSnackBarModule, MatTableModule, MatStepperModule, ReactiveFormsModule, MatExpansionModule, DragDropModule, MatChipsModule, MatTabsModule, MatRadioModule
+    ],
   providers: [{provide: MatPaginatorIntl}],
   bootstrap: [AppComponent]
 })
