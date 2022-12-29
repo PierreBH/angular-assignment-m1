@@ -7,6 +7,7 @@ import {Eleve} from "../model/eleve.model";
 import {MatiereService} from "../../shared/matiere.service";
 import {EleveService} from "../../shared/eleve.service";
 import {FormBuilder, FormGroup, Validators} from "@angular/forms";
+import {TokenStorageService} from "../../shared/token.service";
 
 @Component({
   selector: 'app-edit-assignment',
@@ -26,6 +27,9 @@ export class EditAssignmentComponent implements OnInit {
 
   formControlNote = this._formBuilder.control('', [Validators.required, Validators.min(0), Validators.max(20)]);
   formGroup:FormGroup;
+  private isLoggedIn: boolean;
+  private isAdmin: boolean;
+  private userName: string;
 
 
   constructor(
@@ -35,9 +39,24 @@ export class EditAssignmentComponent implements OnInit {
     private router: Router,
     private matiereService: MatiereService,
     private eleveService: EleveService,
+    private tokenService: TokenStorageService
   ) {}
 
   ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenService.getToken();
+
+    console.log(!!this.tokenService.getToken())
+
+    if(this.isLoggedIn){
+      const user = this.tokenService.getUser();
+      this.isAdmin = user.isAdmin;
+
+      this.userName = user.name;
+    }
+
+    this.auteur = new Eleve();
+    this.matiereForm = new Matiere();
+
     this.getAssignment();
     this.initListEleve();
     this.initListMatiere();
@@ -48,38 +67,44 @@ export class EditAssignmentComponent implements OnInit {
     // le "+" force l'id de type string en "number"
     const id = this.route.snapshot.params['id'];
 
-    this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-      if (!assignment) return;
-      this.assignment = assignment;
-      console.log(assignment)
-      // Pour pré-remplir le formulaire
-      this.nomDevoir = assignment.nom;
-      this.dateDeRendu = assignment.dateDeRendu;
-      this.auteur = this.listEleve.find(eleve => eleve._id === assignment.eleve._id) ?? assignment.eleve;
-      this.matiereForm = this.listMatiere.find(matiere => matiere._id === assignment.matiere._id) ?? assignment.matiere;
-      this.note = assignment.note;
-      this.remarque = assignment.remarque;
-    });
+    if(this.isLoggedIn){
+      this.assignmentsService.getAssignment(id).subscribe((assignment) => {
+        if (!assignment) return;
+        this.assignment = assignment;
+        console.log(assignment)
+        // Pour pré-remplir le formulaire
+        this.nomDevoir = assignment.nom;
+        this.dateDeRendu = assignment.dateDeRendu;
+        this.auteur._id = assignment.eleve._id;
+        this.matiereForm._id = assignment.matiere._id;
+        this.note = assignment.note;
+        this.remarque = assignment.remarque;
+      });
+    } else {
+      this.router.navigate(['/connexion']);
+    }
   }
 
   onSaveAssignment() {
-    if (!this.assignment) return;
+    if(this.isLoggedIn && this.isAdmin) {
+      if (!this.assignment) return;
 
-    // on récupère les valeurs dans le formulaire
-    this.assignment.nom = this.nomDevoir;
-    this.assignment.dateDeRendu = this.dateDeRendu;
-    this.assignment.eleve = this.auteur;
-    this.assignment.matiere = this.matiereForm;
-    this.assignment.note = this.note;
-    this.assignment.remarque = this.remarque;
-    this.assignmentsService
-      .updateAssignment(this.assignment)
-      .subscribe((message) => {
-        console.log(message);
+      // on récupère les valeurs dans le formulaire
+      this.assignment.nom = this.nomDevoir;
+      this.assignment.dateDeRendu = this.dateDeRendu;
+      this.assignment.eleve = this.auteur;
+      this.assignment.matiere = this.matiereForm;
+      this.assignment.note = this.note;
+      this.assignment.remarque = this.remarque;
+      this.assignmentsService
+        .updateAssignment(this.assignment)
+        .subscribe((message) => {
+          console.log(message);
 
-        // navigation vers la home page
-        this.router.navigate(['/home']);
-      });
+          // navigation vers la home page
+          this.router.navigate(['/home']);
+        });
+    }
   }
 
   initListMatiere() {

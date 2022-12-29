@@ -24,7 +24,6 @@
     <div class="container-bouton">
       <div>
         <mat-slide-toggle (change)="handleUpdateAssignment()" [(ngModel)]="isChecked">{{isChecked ? 'Devoir rendu' : 'Devoir pas rendu'}}</mat-slide-toggle>
-        <button mat-stroked-button color="primary" (click)="onClickEdit()" [disabled]="!isAdmin()">Modifier</button>
       </div>
       <button mat-flat-button color="accent" class="deleteButton" (click)="handleDeleteAssignment()">   Delete Assignment
       </button>

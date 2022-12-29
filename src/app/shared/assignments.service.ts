@@ -25,30 +25,22 @@ export class AssignmentsService {
   }
 
   getAssignment(id: string): Observable<Assignment | undefined> {
-    //return of(this.assignments.find(assignment => assignment.id === id));
     return this.http.get<Assignment>(`${this.uri}/${id}`);
   }
 
   addAssignment(assignment: Assignment) : Observable<any> {
-    //this.assignments.push(assignment);
-    //this.loggingService.log(assignment.nom, 'ajouté');
-    //return of('Assignment ajouté');
     let message = this.http.post<Assignment>(this.uri, assignment);
+    this.openSnackBar("Assignment ajouté !");
     return message;
   }
 
   updateAssignment(assignment: Assignment) : Observable<any> {
-    //const index = this.assignments.findIndex(a => a.nom === assignment.nom);
-    //this.assignments[index] = assignment;
-    //return of('Assignment Service : Assignment modifié !');
     this.openSnackBar("Assignment modifié !");
     return this.http.put<Assignment>(this.uri, assignment);
   }
 
   deleteAssignment(assignment: Assignment) : Observable<any> {
-    //const index = this.assignments.findIndex(a => a.nom === assignment.nom);
-    //this.assignments.splice(index, 1);
-    //return of('Assignment Service : Assignment supprimé !');
+    this.openSnackBar("Assignment supprimé !");
     return this.http.delete<Assignment>(`${this.uri}/${assignment._id}`);
   }
 
@@ -56,12 +48,16 @@ export class AssignmentsService {
     const appelsVersAddAssignment:any = [];
 
     bdInitialAssignments.forEach((a) => {
-      const nouvelAssignment:any = new Assignment();
+      const nouvelAssignment:Assignment = new Assignment();
 
-      nouvelAssignment.id = a.id;
+      nouvelAssignment._id = a._id;
       nouvelAssignment.nom = a.nom;
       nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
       nouvelAssignment.rendu = a.rendu;
+      nouvelAssignment.note = a.note;
+      nouvelAssignment.remarque = a.remarque;
+      nouvelAssignment.eleve = a.eleve;
+      nouvelAssignment.matiere = a.matiere;
 
       appelsVersAddAssignment.push(this.addAssignment(nouvelAssignment));
     });

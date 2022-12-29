@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../shared/auth.service";
 import {Router} from "@angular/router";
+import {UserService} from "../../shared/user.service";
+import {User} from "../model/user.model";
 
 @Component({
   selector: 'app-register',
@@ -13,7 +14,7 @@ export class RegisterComponent implements OnInit {
   motDePasse: string;
   role: string;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
   }
@@ -22,12 +23,19 @@ export class RegisterComponent implements OnInit {
     this.role = event;
   }
 
-  authentification(){
-    this.authService.logIn();
-  }
-
   onClickConnexion(){
     this.router.navigate(["/connexion"]).then(r => console.log(r));
+  }
+
+  register() {
+    const user = new User();
+    user.name = this.nomUtilisateur;
+    user.password = this.motDePasse;
+    user.isAdmin = this.role === "admin";
+    this.userService.register(user).subscribe((data) => {
+      console.log(data);
+      this.router.navigate(["/home"]).then(r => console.log(r));
+    });
   }
 
 }

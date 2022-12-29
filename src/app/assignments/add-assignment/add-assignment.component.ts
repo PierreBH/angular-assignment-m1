@@ -8,6 +8,7 @@ import {Matiere} from "../model/matiere.model";
 import {Eleve} from "../model/eleve.model";
 import {EleveService} from "../../shared/eleve.service";
 import {Router} from "@angular/router";
+import {TokenStorageService} from "../../shared/token.service";
 
 @Component({
   selector: 'app-add-assignment',
@@ -34,27 +35,44 @@ export class AddAssignmentComponent implements OnInit {
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
+  private isLoggedIn: boolean;
+  private isAdmin: boolean;
+  private userName: string;
 
-  constructor(private assignmentService: AssignmentsService, private router: Router, private _formBuilder: FormBuilder, private matiereService: MatiereService,private eleveService: EleveService) { }
+  constructor(private assignmentService: AssignmentsService, private router: Router, private _formBuilder: FormBuilder,
+              private matiereService: MatiereService,private eleveService: EleveService,private tokenService: TokenStorageService) { }
 
   ngOnInit(): void {
     this.initListMatiere();
     this.initListEleve();
+
+    this.isLoggedIn = !!this.tokenService.getToken();
+
+    if(this.isLoggedIn){
+      const user = this.tokenService.getUser();
+      this.isAdmin = user.isAdmin;
+
+      this.userName = user.name;
+    }
   }
 
   onSubmit() {
-    const newAssignment = new Assignment();
-    newAssignment.nom = this.nomDevoir;
-    newAssignment.eleve = this.auteur;
-    newAssignment.matiere = this.matiere;
-    newAssignment.note = null;
-    newAssignment.remarque = null;
-    newAssignment.dateDeRendu = this.dateDeRendu;
-    newAssignment.rendu = false;
-    this.assignmentService.addAssignment(newAssignment).subscribe(message => {
-      console.log(message);
-      this.router.navigate(["/home"]);
-    });
+    if(this.isLoggedIn) {
+      const newAssignment = new Assignment();
+      newAssignment.nom = this.nomDevoir;
+      newAssignment.eleve = this.auteur;
+      newAssignment.matiere = this.matiere;
+      newAssignment.note = null;
+      newAssignment.remarque = null;
+      newAssignment.dateDeRendu = this.dateDeRendu;
+      newAssignment.rendu = false;
+      this.assignmentService.addAssignment(newAssignment).subscribe(message => {
+        console.log(message);
+        this.router.navigate(["/home"]);
+      });
+    } else {
+      this.router.navigate(["/connexion"]);
+    }
   }
 
   initListMatiere() {

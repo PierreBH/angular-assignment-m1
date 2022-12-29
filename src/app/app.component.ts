@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
-import {AuthService} from "./shared/auth.service";
 import {Router} from "@angular/router";
-import {AssignmentsService} from "./shared/assignments.service";
+import {TokenStorageService} from "./shared/token.service";
 
 @Component({
   selector: 'app-root',
@@ -9,20 +8,31 @@ import {AssignmentsService} from "./shared/assignments.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Application de gestion des devoirs à rendre (Assignments) - Pierre BIHANNIC  ';
+  title = 'Application de gestion des devoirs à rendre (Assignments) - Pierre BIHANNIC - Ilaria AKOUETE ';
+  isLogin: boolean = false;
+  isAdmin: boolean;
+  userName: string;
 
-  constructor(private authService: AuthService, private router: Router, private assignmentsService: AssignmentsService) { }
+  constructor(private router: Router, private tokenService: TokenStorageService) { }
 
-  login(){
-    if(!this.authService.loggedIn){
-      this.authService.logIn();
-    } else{
-      this.authService.logOut();
-      this.router.navigate(["/home"]).then(r => console.log(r));
+  ngOnInit(): void {
+    this.isLogin = !!this.tokenService.getToken();
+
+    if(this.isLogin){
+      const user = this.tokenService.getUser();
+      console.log(user);
+      this.isAdmin = user.isAdmin;
+
+      this.userName = user.name;
     }
   }
 
   onClickConnexion(){
     this.router.navigate(["/connexion"]).then(r => console.log(r));
+  }
+
+  logout(): void {
+    this.tokenService.signOut();
+    window.location.reload();
   }
 }

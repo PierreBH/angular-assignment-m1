@@ -1,4 +1,4 @@
-import {Component, OnInit, Pipe, PipeTransform} from '@angular/core';
+import {AfterViewInit, Component, OnInit, Pipe, PipeTransform, ViewChild} from '@angular/core';
 import {Assignment} from "../assignments/model/assignment.model";
 import {Matiere} from "../assignments/model/matiere.model";
 import {Eleve} from "../assignments/model/eleve.model";
@@ -8,6 +8,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {MatiereService} from "../shared/matiere.service";
 import {EleveService} from "../shared/eleve.service";
 import {MatSnackBar} from "@angular/material/snack-bar";
+import {User} from "../assignments/model/user.model";
+import {UserService} from "../shared/user.service";
 
 @Pipe({
   name: 'nameFilter'
@@ -16,6 +18,16 @@ export class FilterPipe implements PipeTransform {
   transform(items: any[], filter: string): any {
     if (!filter) return items;
     return items.filter(item => item.nom.toLowerCase().includes(filter.toLowerCase()));
+  }
+}
+
+@Pipe({
+  name: 'userFilter'
+})
+export class UserFilter implements PipeTransform {
+  transform(items: any[], filter: string): any {
+    if (!filter) return items;
+    return items.filter(item => item.name.toLowerCase().includes(filter.toLowerCase()));
   }
 }
 
@@ -29,19 +41,27 @@ export class MatiereFilterPipe implements PipeTransform {
   }
 }
 
+type editUser = {
+  id: string,
+  isClicked: boolean,
+}
+
 @Component({
   selector: 'app-parameters-assignment',
   templateUrl: './parameters-assignment.component.html',
   styleUrls: ['./parameters-assignment.component.css']
 })
+
 export class ParametersAssignmentComponent implements OnInit {
   assignment!: Assignment | undefined;
+  user!: User;
   nomDevoir:string;
   dateDeRendu:Date;
   matiereForm: Matiere;
   auteur: Eleve;
   listMatiere: Matiere[] = [];
   listEleve: Eleve[] = [];
+  listUser: User[] = [];
   note: number | null;
   remarque: string | null;
 
@@ -53,6 +73,9 @@ export class ParametersAssignmentComponent implements OnInit {
   nomEnseignant: string;
   urlImageEnseignant: string;
 
+  editUser: editUser[] = [];
+  role: string;
+
   constructor(
     private assignmentsService: AssignmentsService,
     private _formBuilder: FormBuilder,
@@ -60,33 +83,27 @@ export class ParametersAssignmentComponent implements OnInit {
     private router: Router,
     private matiereService: MatiereService,
     private eleveService: EleveService,
+    private userService: UserService,
     private _snackBar: MatSnackBar
-  ) {}
+  ) {
+  }
 
   ngOnInit(): void {
-    this.getAssignment();
     this.initListEleve();
     this.initListMatiere();
+    this.initListUser();
     this.formControlEleve = this._formBuilder.control('', [Validators.required]);
   }
 
-  getAssignment() {
-    // on récupère l'id dans le snapshot passé par le routeur
-    // le "+" force l'id de type string en "number"
-    const id = this.route.snapshot.params['id'];
-
-    this.assignmentsService.getAssignment(id).subscribe((assignment) => {
-      if (!assignment) return;
-      this.assignment = assignment;
-      console.log(assignment)
-      // Pour pré-remplir le formulaire
-      this.nomDevoir = assignment.nom;
-      this.dateDeRendu = assignment.dateDeRendu;
-      this.auteur = this.listEleve.find(eleve => eleve._id === assignment.eleve._id) ?? assignment.eleve;
-      this.matiereForm = this.listMatiere.find(matiere => matiere._id === assignment.matiere._id) ?? assignment.matiere;
-      this.note = assignment.note;
-      this.remarque = assignment.remarque;
-    });
+  onSaveUser(userToSave: User) {
+    if (!userToSave) return;
+    userToSave.isAdmin = this.role === 'admin';
+    this.userService
+      .updateUser(userToSave)
+      .subscribe((message) => {
+        console.log(message);
+        this.editUser[this.editUser.findIndex(user => user.id === userToSave._id)].isClicked = false;
+      });
   }
 
   onSaveAssignment() {
@@ -103,6 +120,9 @@ export class ParametersAssignmentComponent implements OnInit {
       .updateAssignment(this.assignment)
       .subscribe((message) => {
         console.log(message);
+
+        // navigation vers la home page
+        this.router.navigate(['/home']);
       });
   }
 
@@ -114,6 +134,18 @@ export class ParametersAssignmentComponent implements OnInit {
     this.eleveService.getAllEleve().subscribe(data => this.listEleve = data);
   }
 
+  initListUser(){
+    this.userService.getAllUser().subscribe(data => {
+      this.listUser = data
+      this.editUser = data.map(user => {
+        return {
+          id: user._id,
+          isClicked: false
+        }
+      });
+    });
+  }
+
   addEleve(){
     if(this.nomEleve.length > 0) {
       this.eleveService.addEleve(this.nomEleve).subscribe(data => this.initListEleve());
@@ -121,9 +153,29 @@ export class ParametersAssignmentComponent implements OnInit {
   }
 
   deleteEleve(eleve: Eleve) {
-    this.eleveService.deleteEleve(eleve).subscribe(data => {
-      this.initListEleve();
+    this.eleveService.deleteEleve(eleve).subscribe(data => this.initListEleve());
+  }
+
+  deleteUser(user: User) {
+    this.userService.deleteUser(user._id).subscribe(data => this.initListUser());
+  }
+
+  clickEdit(user: User) {
+    this.editUser = this.editUser.map(editUser => {
+      if(editUser.id === user._id) {
+        editUser.isClicked = true;
+      }
+      return editUser;
     });
+    this.role = user.isAdmin ? 'admin' : 'user';
+  }
+
+  isEditingUser(user: User) {
+    return this.editUser.find(editUser => editUser.id === user._id)?.isClicked;
+  }
+
+  isOneIsEditing() {
+    return this.editUser.some(editUser => editUser.isClicked);
   }
 
   addMatiere(){

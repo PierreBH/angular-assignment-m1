@@ -1,27 +1,27 @@
 <div class="main-connexion">
   <form class="form-connexion">
     <h2 class="title">Inscription</h2>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" >
       <mat-label>Nom d'utilisateur</mat-label>
-      <input required matInput>
+      <input required matInput [(ngModel)]="nomUtilisateur" name="nomUser">
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Enter your password</mat-label>
-      <input matInput required [type]="hide ? 'password' : 'text'">
+      <input matInput required [type]="hide ? 'password' : 'text'" [(ngModel)]="motDePasse" name="password">
       <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
         <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
     </mat-form-field>
-    <mat-form-field appearance="fill">
+    <mat-form-field appearance="fill" >
       <mat-label>Role</mat-label>
-      <mat-select required>
+      <mat-select required [(ngModel)]="role" name="role">
         <mat-option value="user">User</mat-option>
         <mat-option value="admin">Admin</mat-option>
       </mat-select>
     </mat-form-field>
     <div style="flex-direction: row; justify-content: space-around;">
       <button type="button" mat-flat-button color="accent" class="ajouterBtn"
-              (click)="authentification()" style="margin-right: 20px">S'inscrire
+              (click)="register()" style="margin-right: 20px">S'inscrire
       </button>
       <button type="button" mat-stroked-button color="accent" class="ajouterBtn"
               (click)="onClickConnexion()" style="margin-right: 20px">Annuler</button>

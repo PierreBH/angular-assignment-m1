@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../shared/auth.service";
 import {Router} from "@angular/router";
+import {UserService} from "../../shared/user.service";
+import {User} from "../model/user.model";
 
 @Component({
   selector: 'app-connexion',
@@ -11,19 +12,24 @@ export class ConnexionComponent implements OnInit {
   hide = true;
   nomUtilisateur: string;
   motDePasse: string;
-  role: string;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private userService: UserService,private router: Router) { }
 
   ngOnInit(): void {
   }
 
-  selectRole(event: string) {
-    this.role = event;
-  }
-
-  authentification(){
-    this.authService.logIn();
+  login() {
+    const user = new User();
+    user.name = this.nomUtilisateur;
+    user.password = this.motDePasse;
+    console.log(user)
+    this.userService.login(user).subscribe((data) => {
+      console.log(data);
+      this.router.navigate(["/home"]).then(r => {
+        window.location.reload();
+        console.log(r)
+      });
+    });
   }
 
   onClickRegister(){

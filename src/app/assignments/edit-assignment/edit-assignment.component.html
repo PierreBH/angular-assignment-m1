@@ -10,8 +10,8 @@
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
     <mat-form-field class="form-input" appearance="fill">
-      <mat-select name="matiere" placeholder="Choisir une matière" [value]="matiereForm" [(ngModel)]="matiereForm" required>
-        <mat-option *ngFor="let matiere of listMatiere" [value]="matiere">
+      <mat-select name="matiere" placeholder="Choisir une matière" [value]="matiereForm._id" [(ngModel)]="matiereForm" required>
+        <mat-option *ngFor="let matiere of listMatiere" [value]="matiere._id">
           {{matiere.nom}}
         </mat-option>
       </mat-select>

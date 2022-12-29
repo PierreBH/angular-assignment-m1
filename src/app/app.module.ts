@@ -37,7 +37,7 @@ import { MatChipsModule} from "@angular/material/chips";
 import {
   FilterPipe,
   MatiereFilterPipe,
-  ParametersAssignmentComponent
+  ParametersAssignmentComponent, UserFilter
 } from './parameters-assignment/parameters-assignment.component';
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatRadioModule} from "@angular/material/radio";
@@ -66,7 +66,8 @@ const routes : Routes = [
         RegisterComponent,
         ParametersAssignmentComponent,
         FilterPipe,
-        MatiereFilterPipe
+        MatiereFilterPipe,
+        UserFilter
     ],
     imports: [
         BrowserModule,

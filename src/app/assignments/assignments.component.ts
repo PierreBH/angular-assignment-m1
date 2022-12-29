@@ -7,6 +7,7 @@ import {$localize} from '@angular/localize/init';
 import {Event, Router} from "@angular/router";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
+import {TokenStorageService} from "../shared/token.service";
 
 @Injectable()
 export class MyCustomPaginatorIntl implements MatPaginatorIntl {
@@ -43,9 +44,12 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   titre = "Mon application sur les Assignments !";
   ajoutActive = false;
   formVisible = false;
+  isLoggedIn: boolean = false;
+  isAdmin: boolean;
+  userName: string;
   assignementSelectionne!:Assignment;
   assignments: Assignment[] = [];
-  displayedColumns: string[] = ['id', 'nom', 'dateRendu', 'rendu', 'modify'];
+  displayedColumns: string[] = ['id', 'nom', 'dateRendu', 'rendu', 'enRetard', 'modify'];
   dataSourceAssignment: MatTableDataSource<Assignment>;
 
   page: number=1;
@@ -61,7 +65,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   checked: string;
 
-  constructor(private assignmentsService: AssignmentsService, private router: Router) {
+  constructor(private assignmentsService: AssignmentsService, private router: Router, private tokenService: TokenStorageService) {
     this.dataSourceAssignment = new MatTableDataSource(this.assignments);
   }
 
@@ -70,6 +74,14 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenService.getToken();
+
+    if(this.isLoggedIn){
+      const user = this.tokenService.getUser();
+      this.isAdmin = user.isAdmin;
+
+      this.userName = user.name;
+    }
     this.dataSourceAssignment.filterPredicate =  ((record,filter) => {
       console.log(filter);
       if(filter != null && (filter == "true" || filter == "false")){
@@ -119,6 +131,10 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
     this.onUpdate();
   }
 
+  isDateDeRenduDepassee(dateDeRendu: Date) {
+    return new Date(dateDeRendu) < new Date();
+  }
+
   onUpdate(){
     this.assignmentsService.getAssignmentsPagine(this.page, this.limit)
       .subscribe(data => {
@@ -157,7 +173,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
     this.assignmentsService.peuplerBDAvecForkJoin()
       .subscribe(() => {
         console.log("LA BD A ETE PEUPLEE, TOUS LES ASSIGNMENTS AJOUTES, ON RE-AFFICHE LA LISTE");
-
+        this.onUpdate();
         this.router.navigate(["/home"], {replaceUrl:true});
       })
   }
