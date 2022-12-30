@@ -43,7 +43,6 @@ export class AssignmentDetailComponent implements OnInit {
         .subscribe(assignment => {
           this.assignmentTransmis = assignment;
           this.isChecked = assignment?.rendu ?? false;
-          console.log(assignment)
         });
   }
 
@@ -66,7 +65,6 @@ export class AssignmentDetailComponent implements OnInit {
   handleDeleteAssignment() {
     if(this.isLoggedIn) {
       this.assignmentsService.deleteAssignment(this.assignmentTransmis ?? new Assignment()).subscribe((message) => {
-        console.log(message);
         this.router.navigate(["/home"]).then(r => console.log(r));
       });
     } {

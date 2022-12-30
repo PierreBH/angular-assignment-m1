@@ -45,8 +45,6 @@ export class EditAssignmentComponent implements OnInit {
   ngOnInit(): void {
     this.isLoggedIn = !!this.tokenService.getToken();
 
-    console.log(!!this.tokenService.getToken())
-
     if(this.isLoggedIn){
       const user = this.tokenService.getUser();
       this.isAdmin = user.isAdmin;
@@ -71,7 +69,6 @@ export class EditAssignmentComponent implements OnInit {
       this.assignmentsService.getAssignment(id).subscribe((assignment) => {
         if (!assignment) return;
         this.assignment = assignment;
-        console.log(assignment)
         // Pour pré-remplir le formulaire
         this.nomDevoir = assignment.nom;
         this.dateDeRendu = assignment.dateDeRendu;
@@ -110,7 +107,6 @@ export class EditAssignmentComponent implements OnInit {
   initListMatiere() {
     this.matiereService.getAllMatiere().subscribe(data => {
       this.listMatiere = data
-      console.log(data);
     });
 
   }

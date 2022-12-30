@@ -22,9 +22,7 @@ export class ConnexionComponent implements OnInit {
     const user = new User();
     user.name = this.nomUtilisateur;
     user.password = this.motDePasse;
-    console.log(user)
     this.userService.login(user).subscribe((data) => {
-      console.log(data);
       this.router.navigate(["/home"]).then(r => {
         window.location.reload();
         console.log(r)

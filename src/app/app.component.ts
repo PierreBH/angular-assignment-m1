@@ -20,7 +20,6 @@ export class AppComponent {
 
     if(this.isLogin){
       const user = this.tokenService.getUser();
-      console.log(user);
       this.isAdmin = user.isAdmin;
 
       this.userName = user.name;

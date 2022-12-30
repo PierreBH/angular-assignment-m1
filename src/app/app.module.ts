@@ -41,6 +41,7 @@ import {
 } from './parameters-assignment/parameters-assignment.component';
 import {MatTabsModule} from "@angular/material/tabs";
 import {MatRadioModule} from "@angular/material/radio";
+import {MatSortModule} from "@angular/material/sort";
 
 const routes : Routes = [
   {path: '', component: AssignmentsComponent},
@@ -90,7 +91,7 @@ const routes : Routes = [
         HttpClientModule,
         MatPaginatorModule,
         MatToolbarModule,
-        MatSidenavModule, MatSnackBarModule, MatTableModule, MatStepperModule, ReactiveFormsModule, MatExpansionModule, DragDropModule, MatChipsModule, MatTabsModule, MatRadioModule
+        MatSidenavModule, MatSnackBarModule, MatTableModule, MatStepperModule, ReactiveFormsModule, MatExpansionModule, DragDropModule, MatChipsModule, MatTabsModule, MatRadioModule, MatSortModule
     ],
   providers: [{provide: MatPaginatorIntl}],
   bootstrap: [AppComponent]

@@ -71,6 +71,24 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit() {
     this.dataSourceAssignment.sort = this.sort;
+    this.dataSourceAssignment.sortingDataAccessor = (item: IIndexable, property) => {
+      switch (property) {
+        case 'id': {
+          if (item['_id']) { return item['_id']; }
+          break;
+        }
+        case 'nom': {
+          if (item['nom']) { return item['nom']; }
+          break;
+        }
+        case 'dateRendu': {
+          if (item['dateDeRendu']) { return item['dateDeRendu']; }
+          break;
+        }
+        default:
+          return item[property];
+      }
+    };
   }
 
   ngOnInit(): void {
@@ -83,7 +101,6 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
       this.userName = user.name;
     }
     this.dataSourceAssignment.filterPredicate =  ((record,filter) => {
-      console.log(filter);
       if(filter != null && (filter == "true" || filter == "false")){
         return record.rendu.toString() == filter;
       } else if(filter != null && filter != "") {
@@ -177,4 +194,8 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
         this.router.navigate(["/home"], {replaceUrl:true});
       })
   }
+}
+
+export interface IIndexable {
+  [key: string]: any;
 }

@@ -39,7 +39,6 @@ export class UserService {
   login(user: User) : Observable<any> {
     const loginObservable = this.http.post<User>(this.uri + '/login', user, httpOptions);
     loginObservable.subscribe((data: any) => {
-      console.log(data);
       this.openSnackBar("Connexion réussie");
       this.tokenService.saveToken(data.token);
       this.tokenService.saveUser(data.user);
