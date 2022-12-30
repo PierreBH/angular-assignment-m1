@@ -7,7 +7,7 @@
         <mat-icon *ngIf="!isAdmin" style="margin-right: 10px">person_pin</mat-icon> Bienvenue {{userName}}
         <button mat-flat-button color="secondary" (click)="logout()" style="margin-left: 10px" *ngIf="isLogin">Déconnexion</button>
       </div>
-      <button mat-flat-button color="secondary" (click)="onClickConnexion()" *ngIf="!isLogin">Se connecter</button>
+      <button id="loginbtn" mat-flat-button color="secondary" (click)="onClickConnexion()" *ngIf="!isLogin">Se connecter</button>
     </div>
 
   </div>

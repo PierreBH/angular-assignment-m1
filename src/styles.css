@@ -2,3 +2,14 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+#loginbtn {
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+#loginbtn:hover {
+  background-color: #f7c2f9;
+  border: 1px solid black;
+  font-size: 0.75em;
+}
