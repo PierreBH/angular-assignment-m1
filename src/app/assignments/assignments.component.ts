@@ -104,7 +104,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
       if(filter != null && (filter == "true" || filter == "false")){
         return record.rendu.toString() == filter;
       } else if(filter != null && filter != "") {
-        return record.nom.toLocaleLowerCase() == filter.toLocaleLowerCase();
+        return record.nom.toLocaleLowerCase().includes(filter.toLocaleLowerCase());
       } else {
         return true;
       }

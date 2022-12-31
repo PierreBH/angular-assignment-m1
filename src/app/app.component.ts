@@ -32,6 +32,9 @@ export class AppComponent {
 
   logout(): void {
     this.tokenService.signOut();
-    window.location.reload();
+    this.router.navigate(["/connexion"]).then(r => {
+      window.location.reload();
+      console.log(r)
+    });
   }
 }

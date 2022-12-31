@@ -72,8 +72,8 @@ export class EditAssignmentComponent implements OnInit {
         // Pour pré-remplir le formulaire
         this.nomDevoir = assignment.nom;
         this.dateDeRendu = assignment.dateDeRendu;
-        this.auteur._id = assignment.eleve._id;
-        this.matiereForm._id = assignment.matiere._id;
+        this.auteur = assignment.eleve;
+        this.matiereForm = assignment.matiere;
         this.note = assignment.note;
         this.remarque = assignment.remarque;
       });
@@ -102,6 +102,10 @@ export class EditAssignmentComponent implements OnInit {
           this.router.navigate(['/home']);
         });
     }
+  }
+
+  objectComparaisonFunction(option:any, value:any) : boolean {
+    return option._id === value._id;
   }
 
   initListMatiere() {

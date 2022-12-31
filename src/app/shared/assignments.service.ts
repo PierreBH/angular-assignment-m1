@@ -5,6 +5,7 @@ import {LoggingService} from "./logging.service";
 import {HttpClient} from "@angular/common/http";
 import {bdInitialAssignments} from "./data";
 import {MatSnackBar } from "@angular/material/snack-bar";
+import {Matiere} from "../assignments/model/matiere.model";
 
 @Injectable({
   providedIn: 'root'
@@ -50,7 +51,6 @@ export class AssignmentsService {
     bdInitialAssignments.forEach((a) => {
       const nouvelAssignment:Assignment = new Assignment();
 
-      nouvelAssignment._id = a._id;
       nouvelAssignment.nom = a.nom;
       nouvelAssignment.dateDeRendu = new Date(a.dateDeRendu);
       nouvelAssignment.rendu = a.rendu;

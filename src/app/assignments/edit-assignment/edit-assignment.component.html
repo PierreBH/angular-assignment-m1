@@ -9,15 +9,15 @@
       <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
       <mat-datepicker #picker></mat-datepicker>
     </mat-form-field>
-    <mat-form-field class="form-input" appearance="fill">
-      <mat-select name="matiere" placeholder="Choisir une matière" [value]="matiereForm._id" [(ngModel)]="matiereForm" required>
-        <mat-option *ngFor="let matiere of listMatiere" [value]="matiere._id">
+    <mat-form-field class="form-input" appearance="fill" *ngIf="matiereForm != null">
+      <mat-select name="matiere" placeholder="Choisir une matière" [value]="matiereForm" [(ngModel)]="matiereForm" required [compareWith]="objectComparaisonFunction">
+        <mat-option *ngFor="let matiere of listMatiere" [value]="matiere">
           {{matiere.nom}}
         </mat-option>
       </mat-select>
     </mat-form-field>
-    <mat-form-field class="form-input" appearance="fill">
-      <mat-select name="auteur" placeholder="Choisir un élève" [(value)]="auteur" [(ngModel)]="auteur" required>
+    <mat-form-field class="form-input" appearance="fill" *ngIf="auteur != null">
+      <mat-select name="auteur" placeholder="Choisir un élève" [(value)]="auteur" [(ngModel)]="auteur" required [compareWith]="objectComparaisonFunction">
         <mat-option *ngFor="let eleve of listEleve" [value]="eleve">
           {{eleve.nom}}
         </mat-option>

@@ -37,7 +37,7 @@
                      (page)="pageSuivante($event)"
                      aria-label="Select page">
       </mat-paginator>
-      <table mat-table [dataSource]="dataSourceAssignment" matSort>
+      <table mat-table [dataSource]="dataSourceAssignment" matSort class="table-assignment">
         <ng-container matColumnDef="id">
           <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
           <td mat-cell *matCellDef="let element"> {{element._id}} </td>
