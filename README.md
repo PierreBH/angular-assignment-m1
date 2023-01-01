@@ -69,16 +69,16 @@ Toutes les fonctionnalités demandées pour ce projet ont été réalisé (avanc
 * Partie connexion/inscription : (Une partie du code en back a été copier d'Alexis Malattia)
   1. Toute la partie connexion et inscription a été gérer par l'objet utilisateur : Ajout d'une collection de donnée dynamique dans MongoDB
   2. Inscription demandant plusieurs informations: 
-    - Pseudo / nom d'utilisateur
-    - Mot de passe
-    - Rôle : Admin ou User : 
-      1. Compte administrateur ayant le droit d'ajouter un devoir, les etudiants et de les noter.
-      2. Compte etudiant pour deposer le devoir et consulter ses notes / remarques
+      - Pseudo / nom d'utilisateur
+      - Mot de passe
+      - Rôle : Admin ou User : 
+        1. Compte administrateur ayant le droit d'ajouter un devoir, les etudiants et de les noter.
+        2. Compte etudiant pour deposer le devoir et consulter ses notes / remarques
     
   3. Connexion :
-    - Formulaire de connexion nom d'utilisateur + mot de passe
-    - Implémentation de Snackbar, losrqu'on est connecté ou lorsque le mot de passe / nom d'utilisateur est incorrect (Gestions des erreurs)
-    - Implémentation du JWT Tokens qui est valable 24 heures (Accès en front à l'objet utilisateur connecté ainsi que de son token pour ainsi savoir s'il est connecté)
+      - Formulaire de connexion nom d'utilisateur + mot de passe
+      - Implémentation de Snackbar, losrqu'on est connecté ou lorsque le mot de passe / nom d'utilisateur est incorrect (Gestions des erreurs)
+      - Implémentation du JWT Tokens qui est valable 24 heures (Accès en front à l'objet utilisateur connecté ainsi que de son token pour ainsi savoir s'il est connecté)
     
 * SideBar :
   * Ajouter un devoir
@@ -88,11 +88,25 @@ Toutes les fonctionnalités demandées pour ce projet ont été réalisé (avanc
 * Ajouter un devoir :
   1. Implémentation du Stepper
   2. Plusieurs informations sont importantes pour la création d'un devoir : 
-    - Nom + date de rendu + rendu
-    - Un élève : Implémentation de la collection élève dans MongoDB dynamique
-    - Une matière : Implémentation de la collection élève dans MongoDB dynamique
-    - note : La note est null par défaut si le devoir n'est pas rendu
-    - remarque : La remarque est null par défaut si le devoir n'est pas rendu
+      - Nom + date de rendu + rendu
+      - Un élève : Implémentation de la collection élève dans MongoDB dynamique
+      - Une matière : Implémentation de la collection élève dans MongoDB dynamique
+      - note : La note est null par défaut si le devoir n'est pas rendu
+      - remarque : La remarque est null par défaut si le devoir n'est pas rendu
+
+* Peupler la base (1000 Assignments) : Bouton pour implémenter 1000 devoirs dans la collection assignments
+
+* Paramètres :
+    1. Seul l'utilisateur possédant le droit admin peut accéder à cette page
+    2. Plusieurs paramétrages sont possibles sur cette page :
+        - Pour les deux premières partie : Matières + élèves
+            1. Possibilité de voir la liste des informations
+            2. Trier par nom (nom de matière ou nom prof pour l'un et nom de l'élève pour l'autre)
+            3. On a la possibilité d'ajouter des éléments de manière dynamique et de supprimer si on le souhaite
+            
+        - Pour la partie Utilisateur :
+           1. Même possibilité de supprimer, ajouter, visionner la liste des utilisateurs
+           2. Spécificité : on peut modifier un utilisateur et ainsi modifier le rôle utilisateur sélectionné. Une snackbar s'affiche lors de la modification
 
 # Le but de l'application
 
