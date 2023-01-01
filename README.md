@@ -60,13 +60,13 @@ Pour la partie Back NodeJS, lancer dans un invite de commande :
 
 Toutes les fonctionnalités demandées pour ce projet ont été réalisé (avancée ainsi qu'avancée ++)
 
-* Visualisation sous forme de table, tous les devoirs.
+* __Visualisation sous forme de table, tous les devoirs.__
   1. Possibilité de filtrer les éléments par rendu/non rendu,
   2. Affichage des informations comme la date de rendu, la note...etc
   3. Informations complémentaires comme des icons représentation si le devoir est rendu et si le devoir a été rendu en retard.
   4. Boutons d'actions, pour modifier ou visualiser en détails un devoir
 
-* Partie connexion/inscription : (Une partie du code en back a été copier d'Alexis Malattia)
+* __Partie connexion/inscription :__ (Une partie du code en back a été copier d'Alexis Malattia)
   1. Toute la partie connexion et inscription a été gérer par l'objet utilisateur : Ajout d'une collection de donnée dynamique dans MongoDB
   2. Inscription demandant plusieurs informations: 
       - Pseudo / nom d'utilisateur
@@ -80,12 +80,12 @@ Toutes les fonctionnalités demandées pour ce projet ont été réalisé (avanc
       - Implémentation de Snackbar, losrqu'on est connecté ou lorsque le mot de passe / nom d'utilisateur est incorrect (Gestions des erreurs)
       - Implémentation du JWT Tokens qui est valable 24 heures (Accès en front à l'objet utilisateur connecté ainsi que de son token pour ainsi savoir s'il est connecté)
     
-* SideBar :
+* __SideBar__ :
   * Ajouter un devoir
   * Peupler la base (1000 assignments)
   * Paramètres
   
-* Ajouter un devoir :
+* __Ajouter un devoir__ :
   1. Implémentation du Stepper
   2. Plusieurs informations sont importantes pour la création d'un devoir : 
       - Nom + date de rendu + rendu
@@ -94,9 +94,9 @@ Toutes les fonctionnalités demandées pour ce projet ont été réalisé (avanc
       - note : La note est null par défaut si le devoir n'est pas rendu
       - remarque : La remarque est null par défaut si le devoir n'est pas rendu
 
-* Peupler la base (1000 Assignments) : Bouton pour implémenter 1000 devoirs dans la collection assignments
+* __Peupler la base (1000 Assignments) :__ Bouton pour implémenter 1000 devoirs dans la collection assignments
 
-* Paramètres :
+* __Paramètres__ :
     1. Seul l'utilisateur possédant le droit admin peut accéder à cette page
     2. Plusieurs paramétrages sont possibles sur cette page :
         - Pour les deux premières partie : Matières + élèves
