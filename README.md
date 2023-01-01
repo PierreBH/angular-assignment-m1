@@ -107,16 +107,3 @@ Toutes les fonctionnalités demandées pour ce projet ont été réalisé (avanc
         - Pour la partie Utilisateur :
            1. Même possibilité de supprimer, ajouter, visionner la liste des utilisateurs
            2. Spécificité : on peut modifier un utilisateur et ainsi modifier le rôle utilisateur sélectionné. Une snackbar s'affiche lors de la modification
-
-# Le but de l'application
-
-Un professeur souhaite ajouter dans l'application, une boite de depot des devoirs pour pouvoir noter ses étudiants.
-Nous allons presenter les fonctionnalités de cette application.
-
-Le professeur se connecte tout d'abord afin d'avoir le droit de noter et ajouter un assignement et la liste des étudiants
-
-![image](https://user-images.githubusercontent.com/90200870/209881197-69487b4e-ccc4-4ede-a359-45f160318b23.png)
-
-Il clique sur  ![image](https://user-images.githubusercontent.com/90200870/209881266-b970957d-447c-4c10-9a82-930694518cc5.png) 
- et rentre les informations necessaires, la date de rendu est obligatoire
- ![image](https://user-images.githubusercontent.com/90200870/209881531-b8e6c321-4dd7-4ff5-a7e5-ecfca6a08ed8.png)
