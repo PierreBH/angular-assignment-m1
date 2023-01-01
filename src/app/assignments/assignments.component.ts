@@ -49,7 +49,7 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
   userName: string;
   assignementSelectionne!:Assignment;
   assignments: Assignment[] = [];
-  displayedColumns: string[] = ['id', 'nom', 'dateRendu', 'rendu', 'enRetard', 'modify'];
+  displayedColumns: string[] = ['id', 'nom', 'dateRendu', 'rendu', 'enRetard', 'note', 'modify'];
   dataSourceAssignment: MatTableDataSource<Assignment>;
 
   page: number=1;
@@ -83,6 +83,10 @@ export class AssignmentsComponent implements OnInit, AfterViewInit {
         }
         case 'dateRendu': {
           if (item['dateDeRendu']) { return item['dateDeRendu']; }
+          break;
+        }
+        case 'note': {
+          if (item['note']) { return item['note']; }
           break;
         }
         default:

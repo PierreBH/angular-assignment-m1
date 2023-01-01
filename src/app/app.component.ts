@@ -8,7 +8,7 @@ import {TokenStorageService} from "./shared/token.service";
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Application de gestion des devoirs à rendre (Assignments) - Pierre BIHANNIC - Ilaria AKOUETE ';
+  title = 'Projet Angular - Gestion des devoirs - Pierre BIHANNIC - Ilaria AKOUETE ';
   isLogin: boolean = false;
   isAdmin: boolean;
   userName: string;
