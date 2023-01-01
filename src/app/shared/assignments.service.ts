@@ -12,7 +12,7 @@ import {Matiere} from "../assignments/model/matiere.model";
 })
 export class AssignmentsService {
 
-  uri = 'http://localhost:8010/api/assignments';
+  uri = 'https://apiassignments.onrender.com/api/assignments';
 
   constructor(private loggingService: LoggingService, private _snackBar: MatSnackBar, private http: HttpClient) { }
 

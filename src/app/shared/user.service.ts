@@ -18,7 +18,7 @@ const httpOptions = {
 })
 export class UserService {
 
-  uri = 'http://localhost:8010/api/user';
+  uri = 'https://apiassignments.onrender.com/api/user';
 
   constructor(private loggingService: LoggingService, private _snackBar: MatSnackBar, private http: HttpClient, private tokenService: TokenStorageService) { }
 
@@ -42,6 +42,7 @@ export class UserService {
       this.openSnackBar("Connexion réussie");
       this.tokenService.saveToken(data.token);
       this.tokenService.saveUser(data.user);
+      console.log(data)
     },(err:HttpErrorResponse) => {
       if(err.status.toString().includes("401")){
         this.openSnackBar("Nom d'utilisateur ou mot de passe incorrect");

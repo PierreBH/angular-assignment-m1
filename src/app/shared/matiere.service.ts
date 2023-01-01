@@ -9,7 +9,7 @@ import {Matiere} from "../assignments/model/matiere.model";
   providedIn: 'root'
 })
 export class MatiereService {
-  uri = 'http://localhost:8010/api/matiere';
+  uri = 'https://apiassignments.onrender.com/api/matiere';
 
   constructor(private loggingService: LoggingService, private _snackBar: MatSnackBar, private http: HttpClient) { }
 

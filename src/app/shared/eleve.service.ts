@@ -12,7 +12,7 @@ import {Eleve} from "../assignments/model/eleve.model";
 })
 export class EleveService {
 
-  uri = 'http://localhost:8010/api/eleve';
+  uri = 'https://apiassignments.onrender.com/api/eleve';
 
   constructor(private loggingService: LoggingService, private _snackBar: MatSnackBar, private http: HttpClient) { }
 
