@@ -4,6 +4,7 @@ Cette application est generée avec  le framework front-end Angular, un back-end
 
 # Infos utiles
 
+Lien de l'application : https://assignments-m1-miage.netlify.app/
 Lien du BackEnd en NodeJS : https://apiassignments.onrender.com/
 
 # Comment tester l'application ? 
