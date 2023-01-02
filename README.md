@@ -2,6 +2,10 @@
 
 Cette application est generée avec  le framework front-end Angular, un back-end basé sur Node.JS et une base de donnée NoSQL MongoDB.
 
+# Infos utiles
+
+Lien du BackEnd en NodeJS : https://apiassignments.onrender.com/
+
 # Comment tester l'application ? 
 
 ## Prerequis
