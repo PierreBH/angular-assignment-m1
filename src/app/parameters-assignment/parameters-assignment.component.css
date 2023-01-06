@@ -19,6 +19,7 @@
 
 .user-form .mat-form-field{
   width: 100px;
+  margin: 5px;
 }
 
 .form h3{
@@ -82,6 +83,9 @@
 .form .mat-list .mat-list-item{
   box-shadow: 0 0 5px 0 rgba(0,0,0,0.2);
   border-radius: 5px;
+  height:auto;
+  padding:5px 0;
+
 }
 
 .form .mat-list .mat-list-item .mat-list-item-content{
