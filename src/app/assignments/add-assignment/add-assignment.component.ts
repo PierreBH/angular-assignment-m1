@@ -35,6 +35,12 @@ export class AddAssignmentComponent implements OnInit {
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['', Validators.required],
   });
+  thirdFormGroup = this._formBuilder.group({
+    thirdCtrl: ['', Validators.required],
+  });
+  fourthFormGroup = this._formBuilder.group({
+    fourthCtrl: ['', Validators.required],
+  });
   private isLoggedIn: boolean;
   private isAdmin: boolean;
   private userName: string;

@@ -10,11 +10,11 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="firstFormGroup" errorMessage="Matière obligatoire, veuillez préciser une matière" >
-    <form [formGroup]="firstFormGroup">
+  <mat-step [stepControl]="secondFormGroup" errorMessage="Matière obligatoire, veuillez préciser une matière" >
+    <form [formGroup]="secondFormGroup">
       <ng-template matStepLabel>Préciser la matière</ng-template>
       <mat-form-field class="form-input" appearance="fill">
-        <mat-select name="matiere" placeholder="Choisir une matière" [(ngModel)]="matiere" required formControlName="firstCtrl">
+        <mat-select name="matiere" placeholder="Choisir une matière" [(ngModel)]="matiere" required formControlName="secondCtrl">
           <mat-option *ngFor="let matiere of listMatiere" [value]="matiere">
             {{matiere.nom}}
           </mat-option>
@@ -26,11 +26,11 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="firstFormGroup" errorMessage="Élève obligatoire, veuillez préciser un élève" >
-    <form [formGroup]="firstFormGroup">
+  <mat-step [stepControl]="thirdFormGroup" errorMessage="Élève obligatoire, veuillez préciser un élève" >
+    <form [formGroup]="thirdFormGroup">
       <ng-template matStepLabel>Préciser l'élève</ng-template>
       <mat-form-field class="form-input" appearance="fill">
-        <mat-select name="eleve" placeholder="Choisir un élève" [(value)]="auteur" [(ngModel)]="auteur" required formControlName="firstCtrl">
+        <mat-select name="eleve" placeholder="Choisir un élève" [(value)]="auteur" [(ngModel)]="auteur" required formControlName="thirdCtrl">
           <mat-option *ngFor="let eleve of listEleve" [value]="eleve">
             {{eleve.nom}}
           </mat-option>
@@ -42,13 +42,13 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="secondFormGroup" errorMessage="Date de rendu obligatoire, veuillez préciser une date">
-    <form [formGroup]="secondFormGroup">
+  <mat-step [stepControl]="fourthFormGroup" errorMessage="Date de rendu obligatoire, veuillez préciser une date">
+    <form [formGroup]="fourthFormGroup">
       <ng-template matStepLabel>Préciser une date de rendu</ng-template>
       <mat-form-field appearance="fill" class="form-input">
         <input matInput [matDatepicker]="picker"
                placeholder="Date de rendu"
-                name="date" required [(ngModel)]="dateDeRendu" formControlName="secondCtrl">
+                name="date" required [(ngModel)]="dateDeRendu" formControlName="fourthCtrl">
         <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
@@ -61,7 +61,7 @@
   <mat-step>
     <ng-template matStepLabel>Ajouter le devoir</ng-template>
     <div class="container-bouton">
-        <button type="button" mat-flat-button color="accent" class="ajouterBtn"
+        <button type="button" mat-flat-button color="accent" class="ajouterBtn" [disabled]="((!nomDevoir)||(!matiere)||(!auteur)||(!dateDeRendu))"
                 (click)="onSubmit()" style="margin-right: 20px"
         >   Ajouter Assignment
         </button>
